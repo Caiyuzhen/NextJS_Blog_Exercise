@@ -2,6 +2,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import {GraphQLClient, gql} from 'graphql-request'
+import Menu from './components/menu'
+
 
 // 地址填入要调用的 api 地址
 const client = new GraphQLClient('https://api-ap-northeast-1.hygraph.com/v2/cl88xvy281qi801tafuguf6v4/master')
@@ -56,21 +58,12 @@ console.log('posts',posts);
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-
+	  {/* 🌟 内容分区 */}
 	  <div className="blog">
-			<div className="blog-part is-menu">
-				<a href="#" className="blog-menu">
-					Work
-					<svg fill="none" stroke="currentColor" strokeWidth=".7" strokeLinecap="round" strokeLinejoin="round" className="feather feather-arrow-up-right" viewBox="0 0 24 24">
-						<path d="M7 17L17 7M7 7h10v10" />
-					</svg>
-				</a>
-				<a href="#" className="blog-menu">Studio</a>
-				<a href="#" className="blog-menu">Blog</a>
-				<a href="#" className="blog-menu">Contact</a>
-				<a href="#" className="blog-menu mention">@MagazineDope</a>
-				<a href="#" className="blog-menu subscribe">Subscribe</a>
-			</div>
+			{/* 🌟 左侧菜单 */}
+			<Menu />
+
+			{/* 🌟 顶部标题 */}
 			<div className="blog-header blog-is-sticky">
 				<div className="blog-article header-article">
 					<div className="blog-big__title">Self</div>
@@ -82,7 +75,7 @@ console.log('posts',posts);
 			</div>
 
 
-		 	{/* 🌟【回填】后端返回的【博客内容】 */}
+		 	{/* 🌟【博客内容】:【数据回填】: 填入后端返回的数据 */}
 			<div className="blog-header-container">
 				{posts.map((post)=>{
 					return(	
@@ -99,7 +92,8 @@ console.log('posts',posts);
 									<span>{post.readTime}</span>
 								</div>
 								<p>{post.description}</p>
-								<a href="#">
+								{/* 🌟 next.js 动态路由跳转详情页面 */}
+								<a href={'/posts/' + post.id}>
 									<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-corner-down-right" viewBox="0 0 24 24">
 										<path d="M15 10l5 5-5 5" />
 										<path d="M4 4v7a4 4 0 004 4h12" />
@@ -112,6 +106,8 @@ console.log('posts',posts);
 					
 				})}
 			</div>
+
+			{/* 🌟 右侧列表 */}
 			<div className="blog-part right-blog">
 				{/* 👇将要被废弃的方法,跑马灯 */}
 				<marquee width="100%" direction="left">
