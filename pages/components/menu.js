@@ -1,8 +1,10 @@
-import styles from '../../styles/Home.module.css'
+// import styles from '../../styles/Home.module.css'
+// className={styles.container}
+
 
 export default function Menu(){
 	return(
-		<div className={styles.container}>
+		<div>
 			<div className="blog-part is-menu">
 				<a href="#" className="blog-menu">
 					Work
@@ -13,7 +15,8 @@ export default function Menu(){
 				<a href="#" className="blog-menu">Studio</a>
 				<a href="#" className="blog-menu">Blog</a>
 				<a href="#" className="blog-menu">Contact</a>
-				<a href="#" className="blog-menu mention">@MagazineDope</a>
+
+				<a href="#" className="blog-menu mention">@Zen</a>
 				<a href="#" className="blog-menu subscribe">Subscribe</a>
 			</div>
 		</div>

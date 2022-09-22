@@ -3,6 +3,9 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import {GraphQLClient, gql} from 'graphql-request'
 import Menu from './components/menu'
+import BlogHeader from './components/blogHeader'
+import BlogContainer from './components/blogContainer'
+import Article from './components/article'
 
 
 // 地址填入要调用的 api 地址
@@ -34,8 +37,8 @@ const QUERY = gql`
 
 //👇 Nex.js 帮我们定义好的函数，用于获取数据
 export async function getStaticProps(){
-
-	const {posts} = await client.request(QUERY)//请求上面的数据结构
+	//【解构赋值给】上面的【请求数据结构】
+	const {posts} = await client.request(QUERY)
 
 	return{
 		props:{
@@ -64,119 +67,14 @@ console.log('posts',posts);
 			<Menu />
 
 			{/* 🌟 顶部标题 */}
-			<div className="blog-header blog-is-sticky">
-				<div className="blog-article header-article">
-					<div className="blog-big__title">Self</div>
-					<div className="blog-menu rounded small-title">Pinned Issue</div>
-				</div>
-				<div className="blog-article page-number">
-					NO. 01
-				</div>
-			</div>
+			<BlogHeader />
 
-
-		 	{/* 🌟【博客内容】:【数据回填】: 填入后端返回的数据 */}
-			<div className="blog-header-container">
-				{posts.map((post)=>{
-					return(	
-						<div className="blog-header"  key={post.id}>
-							<div className="blog-article header-article">
-								<div className="blog-big__title"> {post.category} </div>
-								<div className="blog-menu small-title date"> {post.datePublished} </div>
-							</div>
-							<div className="blog-article">
-								<img src={post.cover.url} alt=""/>
-								<h2> {post.title} </h2>
-								<div className="blog-detail">
-									<span>By {post.author.name} </span>
-									<span>{post.readTime}</span>
-								</div>
-								<p>{post.description}</p>
-								{/* 🌟 next.js 动态路由跳转详情页面 */}
-								<a href={'/posts/' + post.id}>
-									<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-corner-down-right" viewBox="0 0 24 24">
-										<path d="M15 10l5 5-5 5" />
-										<path d="M4 4v7a4 4 0 004 4h12" />
-									</svg>
-									See More
-								</a>
-							</div>
-						</div>
-					);
-					
-				})}
-			</div>
+		 	{/* 🌟【博客内容】:【数据回填】: 填入后端返回的数据(posts 变量) 并传递给【子组件】*/}
+			<BlogContainer posts={posts}/>
 
 			{/* 🌟 右侧列表 */}
-			<div className="blog-part right-blog">
-				{/* 👇将要被废弃的方法,跑马灯 */}
-				<marquee width="100%" direction="left">
-					<span>Now And Then You Miss It Sounds Make You Cry</span>
-					<span>Now In - MoMa Sharing Exhibition NOW</span>
-					<span>NYC Opens After Long Lockdown Check</span>
-				</marquee>
-				<div className="blog-right-title-container">
-					<div className="blog-right-title">
-						Featured Articles
-					</div>
-					<div className="blog-menu rounded">See All</div>
-				</div>
-				<div className="blog-right">
-					<div className="blog-right-container">
-						<div className="blog-title-date">
-							<div className="blog-right-page">1</div>
-							<div className="date">12.06.2021</div>
-						</div>
-						<div className="blog-right-page-title">Blonde - Widespread Acclaim</div>
-						<div className="blog-right-page-subtitle">Blonde received widespread acclaim, with critics praising Ocean's introspective lyrics and the album's</div>
-					</div>
-					<div className="blog-right-container">
-						<div className="blog-title-date">
-							<div className="blog-right-page">2</div>
-							<div className="date">12.06.2021</div>
-						</div>
-						<div className="blog-right-page-title">Introspective Lyrics and Beats</div>
-						<div className="blog-right-page-subtitle">When we toured Scotland we stopped at several selft-sealing hpuses because hotels would</div>
-					</div>
-					<div className="blog-right-container">
-						<div className="blog-title-date">
-							<div className="blog-right-page">3</div>
-							<div className="date">12.06.2021</div>
-						</div>
-						<div className="blog-right-page-title">The Language Of Gris: Comples Beauty Of Monochrome</div>
-						<div className="blog-right-page-subtitle">The interior concept was conceived of by Dutch archtitect Studio Anne Holtrop who cleverly emulated</div>
-					</div>
-					<div className="blog-right-container">
-						<div className="blog-title-date">
-							<div className="blog-right-page">4</div>
-							<div className="date">12.06.2021</div>
-						</div>
-						<div className="blog-right-page-title">A24 IS LAUNCHING ITS OWN BEAUTY BRAND</div>
-						<div className="blog-right-page-subtitle">Blonde received widespread acclaim, with critics praising Ocean's introspective lyrics and the album's</div>
-					</div>
-					<div className="blog-right-container">
-						<div className="blog-title-date">
-						<div className="blog-right-page">5</div>
-						<div className="date">12.06.2021</div>
-						</div>
-						<div className="blog-right-page-title">Elon Musk's SpaceX is launching a moon satellite</div>
-						<div className="blog-right-page-subtitle">The interior concept was conceived of by Dutch archtitect Studio Anne Holtrop who cleverly emulated</div>
-					</div>
-					<div className="blog-right-container">
-						<div className="blog-title-date">
-							<div className="blog-right-page">6</div>
-							<div className="date">12.06.2021</div>
-						</div>
-						<div className="blog-right-page-title">What Happens When You Leave Your Old life Behind</div>
-						<div className="blog-right-page-subtitle">The interior concept was conceived of by Dutch archtitect Studio Anne Holtrop who cleverly emulated</div>
-					</div>
-					<div className="circle">
-						<div className="circle-title">Leave Your Old Life Behind</div>
-						<div className="circle-subtitle">Don't try to be like someone else, be yourself. Be secure with yourself.</div>
-						<div className="circle-footer">Explore</div>
-					</div>
-				</div>
-			</div>
+			<Article />
+
 	  </div>
     </div>
   )

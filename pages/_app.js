@@ -1,6 +1,8 @@
 import { useState,useEffect,AnimationEventuseEffect } from 'react'
+// 在 app.js 中统一引入 css 样式
 import '../styles/globals.css'
 import '../styles/index.scss'
+import '../styles/blog.scss'
 
 
 function MyApp({ Component, pageProps }) {
