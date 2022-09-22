@@ -1,6 +1,6 @@
 import {GraphQLClient, gql} from 'graphql-request'
 import Menu from '../components/menu'
-import Editor from '../components/editor'
+
 
 
 const client = new GraphQLClient('https://api-ap-northeast-1.hygraph.com/v2/cl88xvy281qi801tafuguf6v4/master')
